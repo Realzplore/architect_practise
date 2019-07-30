@@ -79,6 +79,48 @@ public class MapPractise {
          * 比较keySet、entrySet效率
          * 初始化10W次赋值
          */
+        compareLoop();
+        System.out.println("=============================");
+        compareInsert();
+
+    }
+
+    private static void compareInsert() {
+        int size = 1000000;
+        Long start,times;
+
+        start = System.currentTimeMillis();
+        for (int i = 0; i < size; i++) {
+            hashMap.put(String.valueOf(i), String.valueOf(i));
+        }
+        times = System.currentTimeMillis() - start;
+        System.out.println("hashmap insert " + size + " datas for " + times + " ms");
+
+        start = System.currentTimeMillis();
+        for (int i = 0; i < size; i++) {
+            treeMap.put(String.valueOf(i), String.valueOf(i));
+        }
+        times = System.currentTimeMillis() - start;
+        System.out.println("treemap insert " + size + " datas for " + times + " ms");
+
+        start = System.currentTimeMillis();
+        for (int i = 0; i < size; i++) {
+            hashTable.put(String.valueOf(i), String.valueOf(i));
+        }
+        times = System.currentTimeMillis() - start;
+        System.out.println("hashTable insert " + size + " datas for " + times + " ms");
+
+        start = System.currentTimeMillis();
+        for (int i = 0; i < size; i++) {
+            linkedHashMap.put(String.valueOf(i), String.valueOf(i));
+        }
+        times = System.currentTimeMillis() - start;
+        System.out.println("linkedHashMap insert " + size + " datas for " + times + " ms");
+
+
+    }
+
+    private static void compareLoop() {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < 100000; i++) {
             map.put(i, i);
@@ -123,7 +165,6 @@ public class MapPractise {
         }
         end = System.currentTimeMillis();
         System.out.println("迭代器，entrySet：" + (end - start) + " ms");
-
     }
 
 }
