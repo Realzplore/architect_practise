@@ -1,6 +1,5 @@
 package com.practise.concurrent.thread.callable;
 
-import com.practise.concurrent.thread.CyclicTransactionCallback;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.util.CollectionUtils;
 
