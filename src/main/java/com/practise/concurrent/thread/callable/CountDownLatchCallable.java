@@ -26,24 +26,6 @@ public class CountDownLatchCallable<T> extends RealzCallable<T> {
         this.countDownLatch = countDownLatch;
     }
 
-    @Override
-    public T call() {
-        return transactionTemplate.execute(new CyclicTransactionCallback<T>() {
-            @Override
-            public T doInTransactionWithResult(TransactionStatus status) {
-                try {
-                    await();
-                    T object = callable.call();
-                    countdown();
-                    cyclicBarrier.await(timeout, timeUnit);
-                    return object;
-                } catch (Exception e) {
-                    throw new RuntimeException("线程执行错误 : " + e.getMessage());
-                }
-            }
-        });
-    }
-
     protected void await() {
         if (!CollectionUtils.isEmpty(waitLatch)) {
             for (CountDownLatch wait : waitLatch) {
@@ -62,6 +44,19 @@ public class CountDownLatchCallable<T> extends RealzCallable<T> {
     protected void countdown() {
         if (countDownLatch != null) {
             countDownLatch.countDown();
+        }
+    }
+
+    @Override
+    public T doInTransaction(TransactionStatus transactionStatus) {
+        try {
+            await();
+            T object = callable.call();
+            countdown();
+            cyclicBarrier.await(timeout, timeUnit);
+            return object;
+        } catch (Exception e) {
+            throw new RuntimeException("线程执行错误 : " + e.getMessage());
         }
     }
 }

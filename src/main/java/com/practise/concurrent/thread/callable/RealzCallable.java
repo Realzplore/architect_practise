@@ -1,5 +1,6 @@
 package com.practise.concurrent.thread.callable;
 
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.concurrent.Callable;
@@ -13,13 +14,17 @@ import java.util.concurrent.TimeUnit;
  * @date: 2019-07-12
  * @email: liping.zheng@huilianyi.com
  */
-public abstract class RealzCallable<T> implements Callable<T> {
+public abstract class RealzCallable<T> implements Callable<T>, TransactionCallback<T> {
 
     protected TransactionTemplate transactionTemplate;
     protected CyclicBarrier cyclicBarrier;
     protected long timeout;
     protected TimeUnit timeUnit;
 
+    @Override
+    public T call() {
+        return transactionTemplate.execute(this);
+    }
 
     public void setTransactionTemplate(TransactionTemplate transactionTemplate) {
         this.transactionTemplate = transactionTemplate;
