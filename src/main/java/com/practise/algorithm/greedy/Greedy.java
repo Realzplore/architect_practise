@@ -16,7 +16,7 @@ public class Greedy {
     private static Double[] value = {10d, 20d, 30d, 30d, 40d, 50d, 20d, 30d, 10d, 50d};
 
     private static Double M = 200d;
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         List<Map<String, Double>> results = getMaxValue(M, weight, value);
         System.out.println(results);
     }

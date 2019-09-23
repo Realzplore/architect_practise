@@ -6,7 +6,7 @@ package com.practise.algorithm.stringCompare;
  * Knuth-Morris-Pratt算法（简称KMP） 核心原理是利用一个“部分匹配表”，跳过已经匹配过的元素。
  */
 public class KMP {
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         String source = "KMP MATCH";
         String object = "TCH";
         System.out.println("source : " + source + ",object : " + object + ", index : " + kmp(source, object));

@@ -6,7 +6,7 @@ package com.practise.concurrent;
  */
 public class JoinDemo {
 
-    public static void main (String[] args) {
+    public static void main1 (String[] args) {
         Thread previousThread = Thread.currentThread();
         for (int i = 0; i < 10; i++) {
             Thread currentThread = new JoinThread(previousThread);

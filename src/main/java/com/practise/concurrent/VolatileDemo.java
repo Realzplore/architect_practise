@@ -6,7 +6,7 @@ package com.practise.concurrent;
  */
 public class VolatileDemo {
     private static boolean isOver = false;
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

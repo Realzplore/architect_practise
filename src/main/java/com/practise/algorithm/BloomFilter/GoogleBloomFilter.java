@@ -16,7 +16,7 @@ public class GoogleBloomFilter {
     10000000;
     static Random generator = new Random();
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         int error = 0;
         HashSet<Integer> hashSet = new HashSet<>();
         BloomFilter<Integer> filter = BloomFilter.create(Funnels.integerFunnel(), sizeOfNumberSet);

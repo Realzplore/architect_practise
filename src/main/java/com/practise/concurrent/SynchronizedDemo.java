@@ -8,7 +8,7 @@ public class SynchronizedDemo implements Runnable {
 
     private static int count = 0;
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         for (int i = 0; i < 10; i++) {
             Thread thread = new Thread(new SynchronizedDemo());
             thread.start();

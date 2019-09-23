@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. Realz Liping.zheng.
+  ~ All rights are reserved.
+  -->
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20190923001" author="realz">
+        <createTable tableName="rl_user" remarks="user basic info">
+            <column type="bigint" name="user_id" incrementBy="1" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="rl_user_p1"/>
+            </column>
+            <column type="varchar(100)" name="login" remarks="user login">
+                <constraints nullable="false"/>
+            </column>
+            <column type="varchar(255)" name="password" remarks="user password">
+                <constraints nullable="false"/>
+            </column>
+            <column type="varchar(255)" name="username" remarks="user name">
+                <constraints nullable="false"/>
+            </column>
+            <column type="varchar(255)" name="nickname" remarks="nick name">
+                <constraints nullable="false"/>
+            </column>
+            <column type="boolean" name="is_active" defaultValueBoolean="true"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

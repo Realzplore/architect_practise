@@ -50,7 +50,7 @@ public class BeautifulArrangement {
         return array;
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         System.out.println(Arrays.toString(constructArray(5, 2)));
     }
 }

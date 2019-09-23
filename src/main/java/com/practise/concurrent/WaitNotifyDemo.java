@@ -8,7 +8,7 @@ public class WaitNotifyDemo {
     private static String lockObject = "";
     private static boolean isWait = true;
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         WaitThread waitThread = new WaitThread(lockObject);
         NotifyThread notifyThread = new NotifyThread(lockObject);
         notifyThread.start();

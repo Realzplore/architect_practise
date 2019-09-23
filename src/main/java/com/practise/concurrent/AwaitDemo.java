@@ -13,7 +13,7 @@ public class AwaitDemo {
     private static volatile Boolean flag = false;
 
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         Thread waiter = new Thread(new Waiter());
         waiter.start();
         Thread signaler = new Thread(new Signaler());

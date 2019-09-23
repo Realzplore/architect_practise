@@ -10,7 +10,7 @@ import java.util.concurrent.FutureTask;
  * @Date: 2018/9/14
  */
 public class FutureTaskDemo {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main1(String[] args) throws ExecutionException, InterruptedException {
         String result = futureTaskTest();
         System.out.println(result);
 

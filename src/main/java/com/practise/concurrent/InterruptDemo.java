@@ -5,7 +5,7 @@ package com.practise.concurrent;
  * @Date: 2018/9/4
  */
 public class InterruptDemo {
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         Thread threadA = new Thread(){
             @Override
             public void run() {

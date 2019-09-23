@@ -14,7 +14,7 @@ public class ProducerConsumerDemo {
     private static Condition full = lock.newCondition();
     private static Condition empty = lock.newCondition();
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
 
     }
 

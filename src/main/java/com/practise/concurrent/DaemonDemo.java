@@ -5,7 +5,7 @@ package com.practise.concurrent;
  * @Date: 2018/9/4
  */
 public class DaemonDemo {
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         Thread daemonThread = new Thread(new Runnable() {
             @Override
             public void run() {

@@ -13,7 +13,7 @@ public class CountDownLatchDemo {
     private static CountDownLatch startSignal = new CountDownLatch(1);
     private static CountDownLatch endSignal = new CountDownLatch(6);
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main1(String[] args) throws InterruptedException{
         ExecutorService executorService = Executors.newFixedThreadPool(6);
         for (int i = 0; i < 6; i++) {
             executorService.execute(()->{

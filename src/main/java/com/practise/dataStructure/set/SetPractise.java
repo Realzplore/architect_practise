@@ -56,7 +56,7 @@ public class SetPractise {
         set1.add(new Person("赵六", 32, "男"));
     }
 
-    public static void main(String args[]) {
+    public static void main1(String args[]) {
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());

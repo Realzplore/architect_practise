@@ -7,7 +7,7 @@ package com.practise.concurrent;
 public class DeadLockDemo {
     private static String resource_a = "A";
     private static String resource_b = "B";
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         deadLock();
     }
 

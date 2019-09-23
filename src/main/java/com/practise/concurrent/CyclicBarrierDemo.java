@@ -14,7 +14,7 @@ public class CyclicBarrierDemo {
         System.out.println("所有运动员入场，裁判员一声令下！！！！！");
     });
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         System.out.println("运动员准备进场，全场欢呼............");
 
         ExecutorService executorService = Executors.newFixedThreadPool(6);

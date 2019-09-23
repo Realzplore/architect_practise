@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class LockDemo {
     private static ReentrantLock lock = new ReentrantLock();
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         for (int i = 0; i < 5; i++) {
             Thread thread = new Thread(()->{
                 lock.lock();

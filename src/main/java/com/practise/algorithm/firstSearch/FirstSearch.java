@@ -33,7 +33,7 @@ public class FirstSearch {
         node3.setNodeSet(set3);
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         List<Node> result = new ArrayList<>();
 
 //        result = bfs(node1);

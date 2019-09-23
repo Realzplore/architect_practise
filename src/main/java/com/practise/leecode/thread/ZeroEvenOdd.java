@@ -80,7 +80,7 @@ public class ZeroEvenOdd {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         ZeroEvenOdd zeroEvenOdd = new ZeroEvenOdd(5);
         IntConsumer intConsumer = new IntSummaryStatistics();
         Thread thread1 = new Thread(() -> {

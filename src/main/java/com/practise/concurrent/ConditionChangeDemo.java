@@ -10,7 +10,7 @@ import java.util.List;
 public class ConditionChangeDemo {
     private static List<String> lockObject = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         Consumer consumer1 = new Consumer(lockObject);
         Consumer consumer2 = new Consumer(lockObject);
         Producer producer = new Producer(lockObject);

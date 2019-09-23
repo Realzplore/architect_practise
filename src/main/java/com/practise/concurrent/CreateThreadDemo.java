@@ -14,7 +14,7 @@ public class CreateThreadDemo {
      * 3、实现callable接口
      */
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         /**
          * 1、继承Thread类
           */

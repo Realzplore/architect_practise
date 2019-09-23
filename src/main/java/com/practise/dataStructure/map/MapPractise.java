@@ -63,7 +63,7 @@ public class MapPractise {
         linkedHashMap.put("age", "18");
     }
 
-    public static void main(String args[]) {
+    public static void main1(String args[]) {
         System.out.println("hashMap : " + hashMap);
         System.out.println("treeMap : " + treeMap);
         System.out.println("hashTable : " + hashTable);
