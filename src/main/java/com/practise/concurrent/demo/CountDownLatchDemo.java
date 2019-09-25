@@ -1,4 +1,4 @@
-package com.practise.concurrent;
+package com.practise.concurrent.demo;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;

@@ -1,4 +1,4 @@
-package com.practise.concurrent;
+package com.practise.concurrent.demo;
 
 /**
  * @Author: liping.zheng
