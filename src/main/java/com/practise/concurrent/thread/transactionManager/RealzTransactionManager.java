@@ -5,13 +5,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * 多线程事务管理类
@@ -25,12 +27,15 @@ public class RealzTransactionManager extends ThreadTransactionManager {
     private static final Logger log = LoggerFactory.getLogger(RealzTransactionManager.class);
 
     private List<RealzCallable> callableList;
+    private boolean onlyOneConnection = false;
+    private DataSource dataSource;
 
     public RealzTransactionManager(TransactionTemplate transactionTemplate, List<RealzCallable> callableList, long timeout, TimeUnit timeUnit) {
         super(transactionTemplate);
-        if (callableList == null || callableList.size() == 0) {
+        if (callableList == null || callableList.isEmpty()) {
             this.callableList = new ArrayList<>();
             this.cyclicBarrier = new CyclicBarrier(0);
+            this.executorService = Executors.newSingleThreadExecutor();
             this.completionService = new ExecutorCompletionService(Executors.newSingleThreadExecutor());
         } else {
             if (timeout > 0) {
@@ -44,7 +49,8 @@ public class RealzTransactionManager extends ThreadTransactionManager {
             for (RealzCallable callable : callableList) {
                 this.callableList.add(this.getCallable(callable));
             }
-            this.completionService = new ExecutorCompletionService(Executors.newFixedThreadPool(callableList.size()));
+            this.executorService = Executors.newFixedThreadPool(callableList.size());
+            this.completionService = new ExecutorCompletionService(executorService);
         }
     }
 
@@ -70,38 +76,71 @@ public class RealzTransactionManager extends ThreadTransactionManager {
     @Override
     public synchronized void execute() {
         if (!executed) {
-            if (callableList != null && callableList.size() > 0) {
-                for (RealzCallable callable : callableList) {
-                    this.completionService.submit(callable);
+            if (onlyOneConnection && dataSource != null) {
+                Connection connection = null;
+                try {
+                    connection = dataSource.getConnection();
+                    connection.setAutoCommit(false);
+                    if (callableList != null && !callableList.isEmpty()) {
+                        for (RealzCallable callable : callableList) {
+                            this.completionService.submit(callable);
+                        }
+                        executed = true;
+                    }
+                    connection.commit();
+                } catch (SQLException e) {
+                    log.info("数据库错误,code:{}", e.getErrorCode());
+                    if (connection != null) {
+                        try {
+                            connection.rollback();
+                        } catch (SQLException ex) {
+                        }
+                    }
+                    executed = false;
                 }
-                executed = true;
+            } else {
+                if (callableList != null && !callableList.isEmpty()) {
+                    for (RealzCallable callable : callableList) {
+                        this.completionService.submit(callable);
+                    }
+                    executed = true;
+                }
             }
+
         }
     }
 
     @Override
     public synchronized List<Object> get() {
-        List<Exception> exceptionResult = new ArrayList<>();
         List<Object> result = new ArrayList<>();
 
         if (executed) {
-            for (int i = 0; i < callableList.size(); i++) {
-                try {
+            try {
+                for (int i = 0; i < callableList.size(); i++) {
                     result.add(completionService.take().get());
-                } catch (RuntimeException e) {
-                    log.error("子线程错误:{}", e.getMessage());
-//                    exceptionResult.add(e);
-                    throw new RuntimeException("message:" + e.getMessage());
-                }catch (Exception e) {
-                    log.error("子线程错误:{}", e.getMessage());
-//                    exceptionResult.add(e);
-                    throw new RuntimeException(e.getMessage());
                 }
+            } catch (Exception e) {
+                log.error("子线程错误:{}", e.getMessage());
+            } finally {
+                executorService.shutdown();
             }
         }
-        if (exceptionResult.size() > 0) {
-            throw new RuntimeException(exceptionResult.stream().map(Throwable::getMessage).collect(Collectors.joining()));
-        }
         return result;
+    }
+
+    public boolean isOnlyOneConnection() {
+        return onlyOneConnection;
+    }
+
+    public void setOnlyOneConnection(boolean onlyOneConnection) {
+        this.onlyOneConnection = onlyOneConnection;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }
