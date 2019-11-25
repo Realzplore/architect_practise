@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.practise.realz.mapper")
 public class ArchitectPractiseApplication {
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         SpringApplication.run(ArchitectPractiseApplication.class, args);
     }
 }

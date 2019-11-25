@@ -64,25 +64,7 @@ public class MapPractise {
     }
 
     public static void main1(String args[]) {
-        System.out.println("hashMap : " + hashMap);
-        System.out.println("treeMap : " + treeMap);
-        System.out.println("hashTable : " + hashTable);
-        System.out.println("linkedHashMap : " + linkedHashMap);
-
-        hashMap.clear();
-        treeMap.clear();
-        hashTable.clear();
-        linkedHashMap.clear();
-
-        /**
-         * 比较for循环、迭代器效率
-         * 比较keySet、entrySet效率
-         * 初始化10W次赋值
-         */
         compareLoop();
-        System.out.println("=============================");
-        compareInsert();
-
     }
 
     private static void compareInsert() {
@@ -122,7 +104,7 @@ public class MapPractise {
 
     private static void compareLoop() {
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000000; i++) {
             map.put(i, i);
         }
 

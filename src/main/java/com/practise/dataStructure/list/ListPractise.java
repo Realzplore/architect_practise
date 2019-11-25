@@ -2,9 +2,11 @@ package com.practise.dataStructure.list;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
 
 /**
  * @Author: liping.zheng
@@ -46,4 +48,67 @@ public class ListPractise {
         arrayList.remove(0);
 
     }
+
+    public static void main(String[] args) {
+//        forTest();
+//        forVector();
+        forEnsureCapacity();
+    }
+
+    public static void forTest() {
+        ArrayList<String> list1 = new ArrayList<>();
+        for (int i = 0; i < 500000; i++) {
+            list1.add("A");
+        }
+
+        long startTime,endTime;
+
+        //for循环
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < list1.size(); i++) {
+            System.out.print(list1.get(i));
+        }
+        System.out.print("\n");
+        endTime = System.currentTimeMillis();
+        System.out.println("for循环耗时： " + (endTime - startTime));
+
+        //foreach
+        startTime = System.currentTimeMillis();
+        for (String i : list1) {
+            System.out.print(i);
+        }
+        System.out.print("\n");
+        endTime = System.currentTimeMillis();
+        System.out.println("foreach耗时： " + (endTime - startTime));
+
+        //迭代器
+        startTime = System.currentTimeMillis();
+        Iterator it = list1.iterator();
+        while (it.hasNext()) {
+            String obj = (String) it.next();
+            System.out.print(obj);
+        }
+        System.out.print("\n");
+        endTime = System.currentTimeMillis();
+        System.out.println("迭代器耗时：" + (endTime - startTime));
+    }
+
+    private static void forVector() {
+        Vector vector = new Vector();
+    }
+
+    private static void forEnsureCapacity() {
+        long startTime = System.currentTimeMillis();
+        ArrayList<String> str1 = new ArrayList<>();
+        str1.ensureCapacity(200000000);
+        for (int i = 0; i < 200000000; i++) {
+            str1.add("A");
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("add time :".concat(String.valueOf(endTime - startTime)).concat(" ms"));
+
+
+
+    }
+
 }
